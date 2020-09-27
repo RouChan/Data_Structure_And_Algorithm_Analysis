@@ -7,7 +7,7 @@
 #include <algorithm>
 using namespace std;
 
-bool cmp(int a, int b) {
+bool cmp(int const& a, int const& b) {
     if(a < b)   return true;
     else        return false;
 }
@@ -22,6 +22,9 @@ public:
     void Init();
     void Set(int x[3]);
     void Traverse();
+    void Order() {
+        sort(array, array + 3, cmp);
+    }
 };
 
 Sort::Sort() {
@@ -54,10 +57,10 @@ void Sort::Traverse() {
 int main () {
     Sort C1;
 
-    int x[] = {10, 2, 23};
-    sort(x, x + 2, cmp);
+    int x[] = {99, 29, 93};
 
     C1.Set(x);
+    C1.Order();
     C1.Traverse();
 
     return 0;
