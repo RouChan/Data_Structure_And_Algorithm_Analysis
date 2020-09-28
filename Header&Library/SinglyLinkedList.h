@@ -6,6 +6,8 @@
 #ifndef DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_LIST_H
 #define DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_LIST_H
 
+#define nullptr 0
+
 enum StatusCode {SUCCESS = 0, RANGE_ERROR};                 // 操作状态码
 
 template <class DataType>                                   // 结点类
