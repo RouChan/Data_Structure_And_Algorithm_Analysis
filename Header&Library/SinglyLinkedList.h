@@ -6,24 +6,9 @@
 #ifndef DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_LIST_H
 #define DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_LIST_H
 
-#define nullptr 0
+#include "Node.h"
 
 enum StatusCode {SUCCESS = 0, RANGE_ERROR};                 // 操作状态码
-
-template <class DataType>                                   // 结点类
-struct Node {
-    DataType data;
-    Node<DataType>* next;
-
-    Node() : next(nullptr){};                               // 无参数初始化函数
-    Node(DataType d, Node<DataType>* link = nullptr);
-};
-
-template <class DataType>
-Node<DataType>::Node(DataType d, Node<DataType>* link) {
-    data = d;
-    next = link;
-}
 
 template <class DataType>
 class List {
