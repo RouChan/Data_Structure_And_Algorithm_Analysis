@@ -4,11 +4,65 @@
 //
 
 #include <iostream>
-#include "HW_2_List&Merge.h"
+#include "../Header&Library/SinglyLinkedList.h"
 using namespace std;
 
+template <class DataType>
+class MergeList : public List<DataType> {
+public:
+    friend void CombineList(List<DataType>& la, List<DataType>& lb, List<DataType>& lc);
+};
+
+template <class DataType>
+void CombineList(List<DataType>& la, List<DataType>& lb, List<DataType>& lc){
+    enum Status {empty = 0, left};
+    Status laStatus = left, lbStatus = left;
+    int laPos = 0, lbPos = 0;
+
+    while (laStatus + lbStatus) {
+        if(laPos == la.Length()) {
+            laStatus = empty;
+        }
+        if(lbPos == lb.Length()) {
+            lbStatus = empty;
+        }
+
+        if(laStatus == left && lbStatus == left) {
+            DataType laTmp, lbTmp;
+
+            la.GetNode(laPos + 1, laTmp);
+            lb.GetNode(lbPos + 1, lbTmp);
+
+            if(laTmp <= lbTmp) {
+                lc.Insert(1, laTmp);
+                laPos++;
+                if(laTmp == lbTmp) lbPos++;
+            } else {
+                lc.Insert(1, lbTmp);
+                lbPos++;
+            }
+        } else if (laStatus == left) {                  // la剩余，lb无
+            while(laPos != la.Length()) {
+                DataType laTmp;
+                la.GetNode(laPos + 1, laTmp);
+                lc.Insert(1, laTmp);
+                laPos++;
+            }
+            laStatus = empty;
+        } else if (lbStatus == left) {                  // lb剩余，la无
+            while(lbPos != lb.Length()) {
+                DataType lbTmp;
+                lb.GetNode(lbPos + 1, lbTmp);
+                lc.Insert(1, lbTmp);
+                lbPos++;
+            }
+            lbStatus = empty;
+        }
+    }
+}
+
 int main () {
-    SinglyLinkedList<int> la, lb, lc;
+    List<int> la, lb, lc;
 
     for(int i = 0; i < 5; i++) {
         la.Insert(la.Length() + 1, i);
@@ -18,7 +72,7 @@ int main () {
         lb.Insert(lb.Length() + 1, i + 1);
     }
 
-    ListMerge(la, lb, lc);
+    CombineList(la, lb, lc);
 
     for(int i = 0; i < lc.Length(); i++) {
         int x = 0;
