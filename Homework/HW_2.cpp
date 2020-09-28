@@ -74,12 +74,7 @@ int main () {
 
     CombineList(la, lb, lc);
 
-    for(int i = 0; i < lc.Length(); i++) {
-        int x = 0;
-        lc.GetNode(i + 1, x);
-        cout << x << " ";
-    }
-    cout << endl;
+    lc.Traverse(1, lc.Length());
 
     return 0;
 }

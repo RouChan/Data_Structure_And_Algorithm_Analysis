@@ -23,7 +23,9 @@ public:
     int     Length() const;                                 // 返回链表长度
     bool    Empty() const;                                  // 判断是否为空链表
     void    Clear();                                        // 清空链表
-//    void Traverse
+    void    Traverse(int from, int to) const;               // 遍历链表
+
+    List<DataType> &operator = (const List<DataType> &copy);// 重载赋值运算符
 
     StatusCode GetNode(int position, DataType& d) const;    // 将position的数据域赋值给d
     StatusCode SetNode(int position, DataType& d);          // 将position位置的结点元素赋值为d
@@ -80,11 +82,36 @@ bool List<DataType>::Empty() const {
 }
 
 template <class DataType>
-void List<DataType>::Clear() {
+void List<DataType>::Clear() {                                  // 仅保留head指针
     DataType tmpNode;
     while(Length() > 0) {
         Delete(1, tmpNode);
     }
+}
+
+template<class DataType>
+void List<DataType>::Traverse(int from, int to) const {
+    for(int i = from; i <= to; i++) {
+        DataType tmp;
+        GetNode(i, tmp);
+        std::cout << tmp << " ";
+    }
+    std::cout << std::endl;
+}
+
+template<class DataType>
+List<DataType> &List<DataType>::operator=(const List<DataType> &copy) {
+    if(&copy != this) {
+        int copyLength = copy.Length();
+        Clear();
+
+        for(int curPosition = 1; curPosition <= copyLength; curPosition++) {
+            DataType tmp;
+            copy(curPosition, tmp);
+            Insert(Length() + 1, tmp);
+        }
+    }
+    return *this;
 }
 
 template <class DataType>
