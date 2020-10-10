@@ -8,7 +8,9 @@
 
 #include "Node.h"
 
-enum StatusCode {SUCCESS = 0, RANGE_ERROR};                 // 操作状态码
+enum StatusCode {SUCCESS = 0, FAIL, UNDER_FLOW, OVER_FLOW,
+        RANGE_ERROR, DUPLICATE_ERROR,NOT_PRESENT, ENTRY_INSERTED, ENTRY_FOUND, VISITED, UNVISITED};
+                                                            // 操作状态码
 
 template <class DataType>
 class List {
