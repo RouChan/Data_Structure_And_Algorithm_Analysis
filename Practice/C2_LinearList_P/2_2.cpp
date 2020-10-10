@@ -9,9 +9,16 @@
 using namespace std;
 
 int main () {
-    PolyItem tmp(2.90, 3);
+    Polynomial p1;
 
-    cout << tmp;
+    p1.Plus(PolyItem(4, 0));
+    p1.Plus(PolyItem(3.2, 2));
+    p1.Plus(PolyItem(-13.2, 2));
+    p1.Plus(PolyItem(0, 1));
+    p1.Plus(PolyItem(-32, 10));
 
+    cout << p1.Length() << endl;
+
+    p1.Traverse(1, p1.Length());
     return 0;
 }

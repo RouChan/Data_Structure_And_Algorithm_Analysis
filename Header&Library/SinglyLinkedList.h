@@ -93,6 +93,9 @@ void List<DataType>::Clear() {                                  // 仅保留head
 
 template<class DataType>
 void List<DataType>::Traverse(int from, int to) const {
+    if(from < 1 || to > Length()) {
+        return ;
+    }
     for(int i = from; i <= to; i++) {
         DataType tmp;
         GetNode(i, tmp);
