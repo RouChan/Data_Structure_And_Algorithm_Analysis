@@ -9,8 +9,9 @@
 using namespace std;
 
 int main () {
-    PolyItem tmp;
-    tmp.coef = 2;
-    cout << tmp.coef << endl;
+    PolyItem tmp(2.90, 3);
+
+    cout << tmp;
+
     return 0;
 }
