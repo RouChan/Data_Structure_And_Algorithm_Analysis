@@ -11,7 +11,7 @@ struct PolyItem {
     int     expo;                                                   // 指数
     int     coef;                                                   // 系数
 
-    friend ostream& operator<<(ostream& out, PolyItem const s);     // 操作符<<重载
+    friend std::ostream& operator<<(std::ostream& out, PolyItem const s);     // 操作符<<重载
 };
 
 template <class DataType>

@@ -5,9 +5,12 @@
 //
 
 #include <iostream>
+#include "Polynomial.h"
 using namespace std;
 
 int main () {
-
+    PolyItem tmp;
+    tmp.coef = 2;
+    cout << tmp.coef << endl;
     return 0;
 }
