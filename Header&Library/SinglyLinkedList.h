@@ -112,7 +112,7 @@ List<DataType> &List<DataType>::operator=(const List<DataType> &copy) {
 
         for(int curPosition = 1; curPosition <= copyLength; curPosition++) {
             DataType tmp;
-            copy(curPosition, tmp);
+            copy.GetNode(curPosition, tmp);
             Insert(Length() + 1, tmp);
         }
     }
