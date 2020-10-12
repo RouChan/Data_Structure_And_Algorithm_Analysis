@@ -22,6 +22,8 @@ Chapter 3-Stack and Queue
     -   `count` `maxSize` `array`
 -   **链式栈的数据成员**
     -   `top` 栈顶指针
+-   **(循环)顺序队列的数据成员**
+    -   `(int)front`队头 `(int)rear`队尾 `maxSize` `array`
 ## Stack
 -   插入删除端为栈顶`Top`，另一端为栈底`Bottom`；
 -   栈`a1`为栈底元素，`an`为栈顶元素；
