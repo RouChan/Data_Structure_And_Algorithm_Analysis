@@ -8,7 +8,9 @@
 
 #include "Node.h"
 
-enum StatusCode {SUCCESS = 0, RANGE_ERROR};                 // 操作状态码
+enum StatusCode {SUCCESS = 0, FAIL, UNDER_FLOW, OVER_FLOW,
+        RANGE_ERROR, DUPLICATE_ERROR,NOT_PRESENT, ENTRY_INSERTED, ENTRY_FOUND, VISITED, UNVISITED};
+                                                            // 操作状态码
 
 template <class DataType>
 class List {
@@ -91,6 +93,9 @@ void List<DataType>::Clear() {                                  // 仅保留head
 
 template<class DataType>
 void List<DataType>::Traverse(int from, int to) const {
+    if(from < 1 || to > Length()) {
+        return ;
+    }
     for(int i = from; i <= to; i++) {
         DataType tmp;
         GetNode(i, tmp);
@@ -107,7 +112,7 @@ List<DataType> &List<DataType>::operator=(const List<DataType> &copy) {
 
         for(int curPosition = 1; curPosition <= copyLength; curPosition++) {
             DataType tmp;
-            copy(curPosition, tmp);
+            copy.GetNode(curPosition, tmp);
             Insert(Length() + 1, tmp);
         }
     }
