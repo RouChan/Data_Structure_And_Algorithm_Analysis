@@ -76,7 +76,7 @@ void LinkStack<DataType>::Clear () {
 template <class DataType>
 int LinkStack<DataType>::Length () const {
     int count = 0;
-    for(Node<DataType>* tmpPtr; tmpPtr != nullptr; tmpPtr = tmpPtr -> next) {
+    for(Node<DataType>* tmpPtr = top; tmpPtr != nullptr; tmpPtr = tmpPtr -> next) {
         count++;
     }
     return count;
