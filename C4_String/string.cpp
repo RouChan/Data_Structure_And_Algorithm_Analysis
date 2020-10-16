@@ -8,10 +8,19 @@
 using namespace std;
 
 int main () {
-    char a[] = "Hello World!\0";
+//    char a[] = "Hello";
+    String s;
 
-    String s(a, 0, 18);
-    cout << s;
+    cin >> s;
+    cout << s << endl;
+
+    int *Next = new int[s.Length()];
+    s.GetNext(Next);
+    for(int i = 0; i < s.Length(); i++) {
+        cout << Next[i];
+    }
+    cout << endl;
+//    cout << s << endl;
 
     return 0;
 }
