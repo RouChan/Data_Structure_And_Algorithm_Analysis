@@ -47,18 +47,13 @@ Chapter 3-Stack and Queue
     -   注意区分`front == rear`时空栈或满栈的判断；
 ---
 
-# Summary
--   结构体`struct`操作符的`<<`重载
-    -   在结构体内声明为友元函数
-        ```C++
-        friend ostream& operator<<(ostream& out, StructType const s) {
-            out << PARAMETERS;
-            return out;
-        }
-        ```
-    -   参数
-    -   调用，直接使用`std::cout`
-        ```c++
-        std::cout << (StructType) s << endl;
-        ```
--   **函数指针`(*visit)`**
+Chapter 4-String
+===========
+-   **顺序串数据成员**
+    -   `str`（存储串的头指针） `length`
+
+
+-   块链存储表示
+    -   串的数据元素是一个字符，因此使用链式存储结构保存串时，每个结点的指针域所占空间大于字符作占的空间，因此空间利用效率较低，引入块链存储表示；
+    -   **块链存储**，每个结点存放若干个字符，减少链表中的结点数量，增大空间利用效率；
+-   存储密度；
