@@ -35,6 +35,9 @@ public:
     bool    Empty() const;                                                  // 判断是否为空
     void    Traverse() const;                                               // 遍历
     void    GetNext(int *next) const;                                       // 求Next数组
+    int     KMPIndex(char *T, int TLength, int *next) const;                // KMP查找
+    char*   GetPtr() const;                                                 // 获取头指针
+
 
     String& operator= (const String& copy);                                 // =操作符重载
 
@@ -101,6 +104,27 @@ void String::GetNext (int *next) const {
             next[j] = k;
         }
     }
+}
+
+int String::KMPIndex (char *T, int TLength, int *next) const {
+    for(int i = 0, j = 0; i < TLength; ) {
+        if(j == -1) {
+            i++;
+            j++;
+        } else if (j == length) {
+            return (i - length);
+        } else if(T[i] == str[j]) {
+            i++;
+            j++;
+        } else {
+            j = next[j];
+        }
+    }
+    return -1;                                                                  // 未查找到
+}
+
+char* String::GetPtr () const {
+    return str;
 }
 
 String& String::operator= (const String& copy) {

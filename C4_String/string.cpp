@@ -1,26 +1,26 @@
 //
 // Created by 喻如辰 on 2020/10/16.
 // 串 utility of string.h
+// call for KMPIndex();
 //
 
 #include <iostream>
+#include <string>
 #include "../Header&Library/string.h"
 using namespace std;
 
 int main () {
-//    char a[] = "Hello";
-    String s;
 
-    cin >> s;
-    cout << s << endl;
+    String p, t;
+    while(cin >> p >> t) {
+        cout << p << endl;
+        cout << t << endl;
 
-    int *Next = new int[s.Length()];
-    s.GetNext(Next);
-    for(int i = 0; i < s.Length(); i++) {
-        cout << Next[i];
+        int *next = new int[p.Length()];
+        p.GetNext(next);
+
+        cout << p.KMPIndex(t.GetPtr(), t.Length(), next) << endl;
     }
-    cout << endl;
-//    cout << s << endl;
 
     return 0;
 }
