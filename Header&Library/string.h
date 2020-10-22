@@ -29,8 +29,7 @@ public:
     String(const char *copy, int from, int to);                             // 使用字符串构造函数
     String(const String& copy);                                             // 复制构造函数
     virtual ~String();                                                      // 析构函数
-
-    //todo: KMPIndex();
+    
     int     Length() const;                                                 // 求字符串长度
     bool    Empty() const;                                                  // 判断是否为空
     void    Traverse() const;                                               // 遍历
@@ -40,6 +39,7 @@ public:
 
 
     String& operator= (const String& copy);                                 // =操作符重载
+    String operator+(const String& oprand);                                   // +操作符重载，达到补全字符出
 
     friend std::ostream& operator<<(std::ostream& out, const String& s);    // 操作符<<重载
     friend std::istream& operator>>(std::istream& in, String& s);           // 操作符>>重载
@@ -107,7 +107,7 @@ void String::GetNext (int *next) const {
 }
 
 int String::KMPIndex (char *T, int TLength, int *next) const {
-    for(int i = 0, j = 0; i < TLength; ) {
+    for(int i = 0, j = 0; i < TLength || (i == TLength && j == length); ) {
         if(j == -1) {
             i++;
             j++;
@@ -138,6 +138,22 @@ String& String::operator= (const String& copy) {
         }
     }
     return *this;
+}
+
+String String::operator+ (const String& oprand) {
+    String sum;
+    sum.length = this -> length + oprand.length;
+    sum.str = new char[sum.length + 1];
+    sum.str[sum.length] = 0;
+
+    for(int i = 0; i < (this -> length); ++i) {
+        sum.str[i] = this -> str[i];
+    }
+    for(int i = 0; i < sum.length; ++i) {
+        sum.str[length + i] = oprand.str[i];
+    }
+
+    return sum;
 }
 
 std::ostream& operator<< (std::ostream& out, const String& s) {
