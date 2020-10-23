@@ -107,7 +107,7 @@ void String::GetNext (int *next) const {
 }
 
 int String::KMPIndex (char *T, int TLength, int *next) const {
-    for(int i = 0, j = 0; i < TLength || (i == TLength && j == length); ) {
+    for(int i = 0, j = 0; i <= TLength; ) {
         if(j == -1) {
             i++;
             j++;

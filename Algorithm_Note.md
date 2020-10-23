@@ -1,27 +1,28 @@
-# 字符串模式匹配算法
+字符串模式匹配算法
+========
 -   在匹配中，主串称为**目标串 Target**，字串称为**模式串 Pattern**；
 -   `i` `j`分别表示在T、P中正在匹配的光标位置，具体数值为字符串中的第`n`个字符（下标+1）；
 ## 简单字符串模式匹配算法/布鲁特·福斯算法/BF算法
 -   在最好情况下算法的时间复杂度为`O(n+m)`；在最坏的情况下时间复杂度为`O(n*m)`；
-```c++
-// assume the Target string, T and Pattern string P;
-// 返回P在T中第一次出现的位置
-int SimpleIndex(const string& T, const string& P) {
-    int startPos = 0, i = 0, j = 0;
-    while(i < T.length() && j < P.length) {
-        if(T[i] = P[j]) {
-            i++;
-            j++;
-        } else {
-            j = 0;
-            i = ++startPos;
-        } 
+    ```c++
+    // assume the Target string, T and Pattern string P;
+    // 返回P在T中第一次出现的位置
+    int SimpleIndex(const string& T, const string& P) {
+        int startPos = 0, i = 0, j = 0;
+        while(i < T.length() && j < P.length) {
+            if(T[i] = P[j]) {
+                i++;
+                j++;
+            } else {
+                j = 0;
+                i = ++startPos;
+            } 
+        }
+        
+        if(j >= P.length) return startPos;
+        else return -1;
     }
-    
-    if(j >= P.length) return startPos;
-    else return -1;
-}
-```
+    ```
 ## 首尾字符串模式匹配算法
 -   在简单字符串模式匹配算法中，分析匹配执行时间的最坏情况是每一次匹配过程中都是在比较到模式串的最后一个字符时才发现不能匹配；
 -   为了避免在每一次匹配的最后一个字符时才发现不匹配，可以采用从模式串的两头分别进行比较的方法；
@@ -37,12 +38,25 @@ int SimpleIndex(const string& T, const string& P) {
         -   若集合`S={k|0<k<j && P0 P1 P2 ... P(k-1) = P(j-k) P(j-k+1) ... P(j-1)`，则`k`取集合`S`元素最大值；
         -   其他情况则`k=0`；
 -   计算出`next[j]`后，设`i` `j`分别表示目标串和模式串当前匹配字符的光标。若`Ti==Pj`，则`i` `j`自增；反之，令`j=next[j]`，若`j==-1`则`i++`与`j=0`进行比较；
-```c++
-void String::GetNext(int *next) {
-    
-} 
-```
-
+    ```c++
+    void String::GetNext(int *next) {
+        
+    } 
+    ```
 -   `next[j]`的求解
     -   `next[j] = k`当下表为`j`的字符不匹配时，跳转到下表`k`
     -   `nextVal[j]`改进
+-----
+
+（三元组）矩阵的转置算法
+========
+-   简单转置算法（从三元组表到三元组表）
+    -   时间复杂度`O(m*num)`，`m`原矩阵行数、是`num`原矩阵非零元素个数，而不使用三元组的矩阵表示方式转置时间复杂度为`O(m*n)`。因此若不满足`num<<m*n`则不用该方法；
+    -   从`Source`三元组矩阵为操作对象，一次中取出（`j*colMax+i`最小的）三元组转置后放入`Dest`三元组表；
+-   **快速转置算法**（从普通矩阵到三元组表）
+    -   时间复杂度`O(num+n)`；
+    -   以原矩阵为操作对象
+    -   步骤
+        -   设置一维数组存储原矩阵每一列的非零元个数；
+        -   设置一维数组存储每一列第一个非零元素三元组在`Dest`数组中存储位置；
+-----
