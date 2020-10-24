@@ -26,7 +26,6 @@ protected:
     double      GetNumber() const;                              // 读取一个数
     OptrCmp     Priority(const char& a, const char& b) const;   // 判断运算符优先级
 public:
-    // todo 构造函数析构函数
     double      ExpressionValue();                              // 求值函数
 };
 
@@ -90,7 +89,6 @@ double Expression::ExpressionValue () {
     fflush(stdin);
     char c = 0;
 
-    //todo: for double type.
     while (std::cin >> c) {
         if(c == EOF || c == '\n') {
             break;
