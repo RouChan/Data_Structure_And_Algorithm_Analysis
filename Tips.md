@@ -27,4 +27,11 @@
             return sum;
         }
         ```
+-   操作符`()`重载
+    -   返回类型引用，非友元
+        ```c++
+        ReturnType &operator()(PARAMETER) {
+            return ...;
+        }
+        ```
 -   子类析构函数被调用后，**自动调用父类析构函数**
