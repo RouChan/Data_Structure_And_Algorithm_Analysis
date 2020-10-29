@@ -39,7 +39,7 @@ public:
 
 
     String& operator= (const String& copy);                                 // =操作符重载
-    String operator+(const String& oprand);                                   // +操作符重载，达到补全字符出
+    String operator+(const String& oprand);                                 // +操作符重载，达到补全字符出
 
     friend std::ostream& operator<<(std::ostream& out, const String& s);    // 操作符<<重载
     friend std::istream& operator>>(std::istream& in, String& s);           // 操作符>>重载
