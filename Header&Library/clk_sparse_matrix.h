@@ -25,6 +25,7 @@ public:
     int     GetRows() const;                                                            // 返回矩阵行数
     int     GetCols() const;                                                            // 返回矩阵列数
     int     GetNum()  const;                                                            // 返回矩阵非零元素个数
+    void    Traverse() const;                                                           // 遍历
 
     StatusCode GetNode(int r, int c, DataType& d) const;                                // 取元素
     StatusCode SetNode(int r, int c, const DataType& d);                                // 设置矩阵元素d在(r, c)
@@ -78,6 +79,32 @@ int CLkSparseMatrix<DataType>::GetCols () const {
 template <class DataType>
 int CLkSparseMatrix<DataType>::GetNum () const {
     return num;
+}
+
+template <class DataType>
+void CLkSparseMatrix<DataType>::Traverse () const {
+    for(int i = 1; i <= rows; ++i) {
+        int count = 0;
+        for(CLkTriNode<DataType> *tmpPtr = rowHead[i]; count != cols; ) {
+            if(tmpPtr -> right == nullptr) {
+                while(count != cols) {
+                    std::cout << "0 ";
+                    count++;
+                }
+                continue;
+            } else {
+                while(count < tmpPtr -> right -> col - 1) {
+                    std::cout << "0 ";
+                    count++;
+                }
+                tmpPtr = tmpPtr -> right;
+                std::cout << tmpPtr -> value << " ";
+                count++;
+            }
+        }
+
+        std::cout << std::endl;
+    }
 }
 
 template <class DataType>

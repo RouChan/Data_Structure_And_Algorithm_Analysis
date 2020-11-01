@@ -15,13 +15,18 @@ int main () {
     m1.SetNode(1, 1, 12);
     m1.SetNode(1, 2, 30);
     m1.SetNode(1, 3, 8);
+
+    m1.SetNode(3, 1, 30);
+    m1.SetNode(3, 2, 18);
 //    cout << m1.GetNum() << endl;
 
-    int tmp = 0;
-    m1.GetNode(1, 2, tmp);
-    cout << tmp << endl;
+//    int tmp = 0;
+//    m1.GetNode(1, 2, tmp);
+//    cout << tmp << endl;
+//
+//    cout << m1.GetNum() << endl;
 
-    cout << m1.GetNum() << endl;
+    m1.Traverse();
 
     return 0;
 }
