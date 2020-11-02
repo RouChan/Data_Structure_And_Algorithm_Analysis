@@ -120,6 +120,13 @@ Chapter 5-Array and Generalized Table
     -   表结点，表示链表（`tag=ATOM, atom, nextLink`）；
     -   原子结点，表示原子（`tag=LIST, subLink, nextLink`）；
     -   三类结点可以用一个结构体表示；
+        ```c++
+        union {
+                int                     ref;                        // designed for HEAD.                                              // 头结点->引用次数
+                DataType                value;                      // designed for ATOM.                              // 原子结点->数据
+                GenListNode<DataType>   *subLink;                   // designed for LIST                            // 表结点->子表
+            };
+        ``` 
     -   每个结点包括三个域：标志域`(enum)`、数据域`(union)`，指针域`(pointer)`；
     -   头结点的数据域（`ref` 引用数）可以用来记录该表是否被继续使用，进而对该结点安全的删除；
 ---
@@ -133,3 +140,5 @@ Chapter 6-Tree and Binary Tree
     -   当n>1时，...；
 ## 6.2 二叉树
 -   二叉树需要区分左子树、右子树（有序树）；
+-   **二叉树性质**
+    -   任何一个二叉树，若有`n0`个叶子结点，`n2`个度为2的结点，则必存在关系`n0=n2+1`；
