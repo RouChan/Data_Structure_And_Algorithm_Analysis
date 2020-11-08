@@ -11,15 +11,17 @@ using namespace std;
 
 int main () {
 
-    String p, t;
-    while(cin >> p >> t) {
+    String p;
+    while(cin >> p) {
         cout << p << endl;
-        cout << t << endl;
 
         int *next = new int[p.Length()];
         p.GetNext(next);
-
-        cout << p.KMPIndex(t.GetPtr(), t.Length(), next) << endl;
+        for(int i = 0; i != p.Length(); ++i) {
+            cout << next[i] + 1;
+        }
+//
+//        cout << p.KMPIndex(t.GetPtr(), t.Length(), next) << endl;
     }
 
     return 0;

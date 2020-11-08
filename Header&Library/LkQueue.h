@@ -122,7 +122,7 @@ StatusCode LinkQueue<DataType>::Push (const DataType& d) {
 template <class DataType>
 StatusCode LinkQueue<DataType>::Front (DataType& d) const {
     if(!Empty()) {
-        d = front -> next.data;
+        d = front -> next -> data;
         return SUCCESS;
     } else {
         return UNDER_FLOW;
