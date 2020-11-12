@@ -8,13 +8,23 @@
 using namespace std;
 
 int main () {
-    BinaryTree<char> test;
+    BinaryTree<char> test('1');
+
+    BinTreeNode<char> *tmp;
+
+    test.GetRootPtr(tmp);
+    test.InsertLeftChild(tmp, '2');
+
+    test.GetElemPtr(2, tmp);
+    test.InsertLeftChild(tmp, '4');
+
+    test.GetRootPtr(tmp);
+    test.InsertRightChild(tmp, '3');
+
+    test.GetElemPtr(3, tmp);
+    test.InsertLeftChild(tmp, '9');
 
     test.PreOrderTraverse();
-    test.InOrderTraverse();
-    test.PostOrderTraverse();
-    test.LevelOrderTraverse();
-    cout << test.NodeCount() << endl;
 
     return 0;
 }

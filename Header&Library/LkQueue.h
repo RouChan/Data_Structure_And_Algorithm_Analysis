@@ -7,9 +7,7 @@
 #define DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_LKQUEUE_H
 
 #include "Node.h"
-
-enum StatusCode {SUCCESS = 0, FAIL, UNDER_FLOW, OVER_FLOW,
-    RANGE_ERROR, DUPLICATE_ERROR,NOT_PRESENT, ENTRY_INSERTED, ENTRY_FOUND, VISITED, UNVISITED};
+#include "global.h"
 
 template <class DataType>
 class LinkQueue {

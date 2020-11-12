@@ -3,12 +3,14 @@
 // 二叉树类 binary_tree.h
 //
 
-#include "bin_tree_node.h"
-#include "LkQueue.h"
-#include <iostream>
-
 #ifndef DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_BINARY_TREE_H
 #define DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_BINARY_TREE_H
+
+#include "global.h"
+#include "bin_tree_node.h"
+#include "LkQueue.h"
+#include "LkStack.h"
+#include <iostream>
 
 template <class DataType>
 class BinaryTree{
@@ -20,8 +22,12 @@ private:
     void    InOrderHelp(BinTreeNode<DataType> *r) const;                    // 中序遍历辅助函数
     void    PostOrderHelp(BinTreeNode<DataType> *r) const;                  // 后序遍历辅助函数
     int     NodeCountHelp(BinTreeNode<DataType> *r) const;                  // 结点个数辅助函数
+    void    DeleteHelp(BinaryTree<DataType> *&node);                        // 删除结点辅助函数
+    int     HeightHelp(BinTreeNode<DataType> *node) const;                  // 求深度辅助函数
 public:
     BinaryTree();											                // 无参构造函数
+    explicit BinaryTree(const DataType& d);                                          // 以d为根结点元素的构造函数
+    ~BinaryTree();
 
     bool    Empty() const;							                        // 判断二叉树是否为空
     void    PreOrderTraverse() const;	                                    // 先序遍历
@@ -29,8 +35,14 @@ public:
     void    PostOrderTraverse() const;	                                    // 后序遍历
     void    LevelOrderTraverse() const;	                                    // 层次遍历
     int     NodeCount() const;									            // 结点个数
+    void    InsertLeftChild(BinTreeNode<DataType> *pos, const DataType &d); // 插入左孩子
+    void    InsertRightChild(BinTreeNode<DataType> *pos, const DataType &d);// 插入右孩子
+    void    DeleteLeftChild(BinTreeNode<DataType> *pos);		            // 删除左子树
+    void    DeleteRightChild(BinTreeNode<DataType> *pos);		            // 删除右子树
+    int     Height() const;                                                 // 求深度
 
-    StatusCode GetRoot(BinTreeNode<DataType> *r) const;				        // 返回根
+    StatusCode GetRootPtr(BinTreeNode<DataType> *&r) const;				    // 返回根
+    StatusCode GetElemPtr(int num, BinTreeNode<DataType> *&node) const;     // 以满二叉树排号方式、返回编号为num的结点地址
     StatusCode GetElem(BinTreeNode<DataType> *pos, DataType &d) const;      // 取特定位置元素
     StatusCode SetElem(BinTreeNode<DataType> *pos, const DataType &d);      // 设置特定位置元素
     StatusCode GetLeftChild(BinTreeNode<DataType> *pos, BinTreeNode<DataType>& n) const;
@@ -39,22 +51,22 @@ public:
                                                                             // 返回pos结点的右子结点
     StatusCode GetParent(BinTreeNode<DataType> *pos, BinTreeNode<DataType>& n) const;
                                                                             // 返回pos结点的双亲结点
-    // todo: 析构函数
-    // todo: return the position of the particular node according to a number.
-//    virtual ~BinaryTree();									// 析构函数
-
-    void InsertLeftChild(BinTreeNode<DataType> *cur, const DataType &e);// 插入左孩子
-    void InsertRightChild(BinTreeNode<DataType> *cur, const DataType &e);// 插入右孩子
-    void DeleteLeftChild(BinTreeNode<DataType> *cur);		// 删除左子树
-    void DeleteRightChild(BinTreeNode<DataType> *cur);		// 删除右子村
-    int	Height() const;										// 求二叉树的高
-    BinaryTree(const DataType &e);							// 建立以e为根的二叉树
-    BinaryTree(const BinaryTree<DataType> &copy);			// 复制构造函数模板
-    BinaryTree(BinTreeNode<DataType> *r);					// 建立以r为根的二叉树
-    BinaryTree<DataType> &operator=(const BinaryTree<DataType>& copy);	// 重载赋值运算符
-                                                   // 无参数构造函数
-
 };
+
+template <class DataType>
+BinaryTree<DataType>::BinaryTree () {
+    root = nullptr;
+}
+
+template <class DataType>
+BinaryTree<DataType>::BinaryTree (const DataType& d) {
+    root = new BinTreeNode<DataType>(d);
+}
+
+template <class DataType>
+BinaryTree<DataType>::~BinaryTree () {
+    DeleteHelp(root);
+}
 
 template <class DataType>
 void BinaryTree<DataType>::PreOrderHelp (BinTreeNode<DataType> *r) const {
@@ -93,8 +105,23 @@ int BinaryTree<DataType>::NodeCountHelp (BinTreeNode<DataType> *r) const {
 }
 
 template <class DataType>
-BinaryTree<DataType>::BinaryTree () {
-    root = nullptr;
+void BinaryTree<DataType>::DeleteHelp (BinaryTree<DataType> *&node) {
+    if(node == nullptr) return;
+    else {
+        DeleteHelp(node -> leftChild);
+        DeleteHelp(node -> rightChild);
+        delete node;
+        node = nullptr;
+    }
+}
+
+template <class DataType>
+int BinaryTree<DataType>::HeightHelp (BinTreeNode<DataType> *node) const {
+    if(node == 0) return 0;
+    else {
+        int leftHeight = HeightHelp(node -> leftChild), rightHeight = HeightHelp(node -> rightChild);
+        return (1 + (leftHeight > rightHeight ? leftHeight : rightHeight));
+    }
 }
 
 template <class DataType>
@@ -147,13 +174,77 @@ int BinaryTree<DataType>::NodeCount () const {
 }
 
 template <class DataType>
-StatusCode BinaryTree<DataType>::GetRoot (BinTreeNode<DataType> *r) const {
+void BinaryTree<DataType>::InsertLeftChild (BinTreeNode<DataType> *pos, const DataType& d) {
+    if(pos == nullptr) {
+        return;
+    } else {
+        pos -> leftChild = new BinTreeNode<DataType>(d, pos, nullptr, nullptr);
+        return;
+    }
+}
+
+template <class DataType>
+void BinaryTree<DataType>::InsertRightChild (BinTreeNode<DataType> *pos, const DataType& d) {
+    if(pos == nullptr) {
+        return ;
+    } else {
+        pos -> rightChild = new BinTreeNode<DataType>(d, pos, nullptr, nullptr);
+        return;
+    }
+}
+
+template <class DataType>
+void BinaryTree<DataType>::DeleteLeftChild (BinTreeNode<DataType> *pos) {
+    if(pos == nullptr) return;
+    else {
+        DeleteHelp(pos -> leftChild);
+    }
+}
+
+template <class DataType>
+void BinaryTree<DataType>::DeleteRightChild (BinTreeNode<DataType> *pos) {
+    if(pos == nullptr) return;
+    else {
+        DeleteHelp(pos -> rightChild);
+    }
+}
+
+template <class DataType>
+int BinaryTree<DataType>::Height () const {
+    return HeightHelp(root);
+}
+
+template <class DataType>
+StatusCode BinaryTree<DataType>::GetRootPtr (BinTreeNode<DataType> *&r) const {
     if(Empty()) {
         return FAIL;
     } else {
         r = root;
         return SUCCESS;
     }
+}
+
+template <class DataType>
+StatusCode BinaryTree<DataType>::GetElemPtr (int num, BinTreeNode<DataType> *& node) const {
+    LinkStack<char> lor;
+    while(num != 1) {
+        lor.Push(num % 2);
+        num /= 2;
+    }
+    BinTreeNode<DataType> *tmpPtr = root;
+    while(!lor.Empty()){
+        char t = 0;
+        lor.Top(t);
+        if(tmpPtr == nullptr) {
+            return FAIL;
+        } else {
+            if (t) tmpPtr = tmpPtr -> rightChild;
+            else tmpPtr = tmpPtr -> leftChild;
+        }
+        lor.Pop(t);
+    }
+    node = tmpPtr;
+    return SUCCESS;
 }
 
 template <class DataType>

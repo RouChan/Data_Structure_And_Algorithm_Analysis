@@ -15,7 +15,7 @@ struct BinTreeNode{
 
     // 构造函数
     BinTreeNode();
-    BinTreeNode(const DataType& val, const BinTreeNode<DataType> *parent = nullptr, const BinTreeNode<DataType> *lChild = nullptr, const BinTreeNode<DataType> *rChild = nullptr);
+    BinTreeNode(const DataType& val, BinTreeNode<DataType> *parent = nullptr, BinTreeNode<DataType> *lChild = nullptr, BinTreeNode<DataType> *rChild = nullptr);
 };
 
 template <class DataType>
@@ -24,7 +24,7 @@ BinTreeNode<DataType>::BinTreeNode () {
 }
 
 template <class DataType>
-BinTreeNode<DataType>::BinTreeNode(const DataType& val, const BinTreeNode<DataType> *parent, const BinTreeNode<DataType> *lChild, const BinTreeNode<DataType> *rChild) {
+BinTreeNode<DataType>::BinTreeNode(const DataType& val, BinTreeNode<DataType> *parent, BinTreeNode<DataType> *lChild, BinTreeNode<DataType> *rChild) {
     data        = val;
     parent      = parent;
     leftChild   = lChild;
