@@ -122,9 +122,9 @@ Chapter 5-Array and Generalized Table
     -   三类结点可以用一个结构体表示；
         ```c++
         union {
-                int                     ref;                        // designed for HEAD.                                              // 头结点->引用次数
-                DataType                value;                      // designed for ATOM.                              // 原子结点->数据
-                GenListNode<DataType>   *subLink;                   // designed for LIST                            // 表结点->子表
+                int                     ref;                        // designed for HEAD.  头结点->引用次数
+                DataType                value;                      // designed for ATOM.  原子结点->数据
+                GenListNode<DataType>   *subLink;                   // designed for LIST   表结点->子表
             };
         ``` 
     -   每个结点包括三个域：标志域`(enum)`、数据域`(union)`，指针域`(pointer)`；
@@ -158,3 +158,9 @@ Chapter 6-Tree and Binary Tree
         -   层次遍历（Levelorder Traversal）：按照二叉树的层次，从上到下、从左到右的次序访问结点；
     -   递归算法；
     -   非递归算法：效率更高、使用栈；
+## 6.4 线索二叉树
+-   **线索二叉树结点数据成员**
+    -   `leftChild` `leftTag` `data` `rightChild` `rightTag`
+-   利用空闲的链域存放遍历过程中的前驱和后继信息；
+    -   若结点左子树**不为空**，则`leftChild`指向左子树，`leftTag`标记为0；
+    -   若结点左子树为空，则`leftChild`指向前驱，`leftTag`标记为1；
