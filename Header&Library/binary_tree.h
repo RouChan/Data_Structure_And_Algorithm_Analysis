@@ -21,12 +21,13 @@ private:
     void    PreOrderHelp(BinTreeNode<DataType> *r) const;                   // 先序遍历辅助函数
     void    InOrderHelp(BinTreeNode<DataType> *r) const;                    // 中序遍历辅助函数
     void    PostOrderHelp(BinTreeNode<DataType> *r) const;                  // 后序遍历辅助函数
+    void    DisplayLikeTreeHelp(BinTreeNode<DataType> *r, int depth) const; // 树状显示辅助函数
     int     NodeCountHelp(BinTreeNode<DataType> *r) const;                  // 结点个数辅助函数
-    void    DeleteHelp(BinaryTree<DataType> *&node);                        // 删除结点辅助函数
+    void    DeleteHelp(BinTreeNode<DataType> *&node);                       // 删除结点辅助函数
     int     HeightHelp(BinTreeNode<DataType> *node) const;                  // 求深度辅助函数
 public:
     BinaryTree();											                // 无参构造函数
-    explicit BinaryTree(const DataType& d);                                          // 以d为根结点元素的构造函数
+    explicit BinaryTree(const DataType& d);                                 // 以d为根结点元素的构造函数
     ~BinaryTree();
 
     bool    Empty() const;							                        // 判断二叉树是否为空
@@ -34,6 +35,7 @@ public:
     void    InOrderTraverse() const;	                                    // 中序遍历
     void    PostOrderTraverse() const;	                                    // 后序遍历
     void    LevelOrderTraverse() const;	                                    // 层次遍历
+    void    DisplayLikeTree() const;                                        // 树状显示
     int     NodeCount() const;									            // 结点个数
     void    InsertLeftChild(BinTreeNode<DataType> *pos, const DataType &d); // 插入左孩子
     void    InsertRightChild(BinTreeNode<DataType> *pos, const DataType &d);// 插入右孩子
@@ -99,13 +101,28 @@ void BinaryTree<DataType>::PostOrderHelp (BinTreeNode<DataType> *r) const {
 }
 
 template <class DataType>
+void BinaryTree<DataType>::DisplayLikeTreeHelp (BinTreeNode<DataType> *r, int depth) const {
+    // 以RDL顺序遍历
+    if(r == nullptr) return;
+    else {
+        DisplayLikeTreeHelp(r -> rightChild, depth + 1);
+        for(int i = 1; i < depth; ++i) {
+            std::cout << " ";
+        }
+        std::cout << r->data << std::endl;
+        DisplayLikeTreeHelp(r -> leftChild, depth + 1);
+
+    }
+}
+
+template <class DataType>
 int BinaryTree<DataType>::NodeCountHelp (BinTreeNode<DataType> *r) const {
     if(r == nullptr)    return 0;
     else                return (NodeCountHelp(r -> leftChild) + NodeCountHelp(r -> rightChild) + 1);
 }
 
 template <class DataType>
-void BinaryTree<DataType>::DeleteHelp (BinaryTree<DataType> *&node) {
+void BinaryTree<DataType>::DeleteHelp (BinTreeNode<DataType> *&node) {
     if(node == nullptr) return;
     else {
         DeleteHelp(node -> leftChild);
@@ -166,6 +183,11 @@ void BinaryTree<DataType>::LevelOrderTraverse () const {
     }
 
     std::cout << std::endl;
+}
+
+template <class DataType>
+void BinaryTree<DataType>::DisplayLikeTree () const {
+    DisplayLikeTreeHelp(root, 1);
 }
 
 template <class DataType>
