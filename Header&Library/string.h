@@ -7,6 +7,8 @@
 #define DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_STRING_H
 
 #include "SinglyLinkedList.h"
+#include <iostream>
+#include <fstream>
 
 // 判断a、b之前的count个字符是否相同（不包括a、b本身的比较）
 bool Cmp(char *a, char *b, int count) {
@@ -24,6 +26,7 @@ class String {
 protected:
     char    *str;
     int     length;                                                         // 可以存放的字符数
+    friend  class File;
 public:
     String();                                                               // 无参构造函数
     String(const char *copy, int from, int to);                             // 使用字符串构造函数
@@ -36,7 +39,6 @@ public:
     void    GetNext(int *next) const;                                       // 求Next数组
     int     KMPIndex(char *T, int TLength, int *next) const;                // KMP查找
     char*   GetPtr() const;                                                 // 获取头指针
-
 
     String& operator= (const String& copy);                                 // =操作符重载
     String operator+(const String& oprand);                                 // +操作符重载，达到补全字符出
