@@ -7,10 +7,9 @@
 #define DATA_STRUCTURE_AND_ALGORITHM_ANALYSIS_LIST_H
 
 #include "Node.h"
+#include "global.h"
 
-enum StatusCode {SUCCESS = 0, FAIL, UNDER_FLOW, OVER_FLOW,
-        RANGE_ERROR, DUPLICATE_ERROR,NOT_PRESENT, ENTRY_INSERTED, ENTRY_FOUND, VISITED, UNVISITED};
-                                                            // 操作状态码
+//extern enum StatusCode;       // 操作状态码
 
 template <class DataType>
 class List {
