@@ -8,7 +8,16 @@
 using namespace std;
 
 int main () {
+    int V[] = {21, 22, 23, 24, 25};
+    AdjUndirGraph<int> Graph(V, 5);
 
+    Graph.InsertEdge(0, 1);
+    Graph.InsertEdge(1, 3);
+//    Graph.InsertEdge(3, 4);
+    Graph.InsertEdge(0, 2);
+    Graph.InsertEdge(2, 4);
 
+    Graph.BFSearch();
+//    Graph.DFSearch();
     return 0;
 }
